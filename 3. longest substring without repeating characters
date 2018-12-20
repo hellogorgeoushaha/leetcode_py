@@ -1,0 +1,30 @@
+#two points which point to the begin and the end of the substring
+#a hashtable to denote the latest appearance of a given letter
+
+
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        if len(s)<2:
+            return len(s)
+        i = 0
+        j = 1
+        hasht = {}
+        index = -1
+        maxlen = 1
+        hasht[s[0]]=0
+        while j < len(s):
+            index = hasht.get(s[j], -1)
+            if index != -1 and index >= i:
+                i = index+1
+                maxlen = maxlen if maxlen > j-i else j-i 
+            hasht[s[j]] = j
+            j += 1
+            #print(maxlen,i,j)
+            maxlen = maxlen if maxlen > j-i else j-i
+        
+        return maxlen
+                
