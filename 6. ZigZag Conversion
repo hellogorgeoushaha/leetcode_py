@@ -1,0 +1,28 @@
+class Solution(object):
+    def convert(self, s, numRows):
+        """
+        :type s: str
+        :type numRows: int
+        :rtype: str
+        """
+        if (numRows == 1):
+            return s
+        
+        s_len = len(s)
+        per_group = (2*numRows-2)
+        num_group = s_len//per_group
+        letter_left = s_len - per_group*num_group
+        res = ""
+        for i in range(numRows):
+            j = 0
+            while(j+i < s_len):
+                res += s[j+i]
+                if i != 0 and i != numRows-1 and j+per_group-i<s_len:
+                    res += s[j+per_group-i]
+                j += per_group
+        
+        return res
+                
+        
+        
+        
