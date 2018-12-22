@@ -1,0 +1,38 @@
+class Solution(object):
+    def myAtoi(self, str):
+        """
+        :type str: str
+        :rtype: int
+        """
+        str = str.strip()
+
+        if len(str)==0:
+            return 0
+        if len(str)==1 and not str[0].isdigit():
+            return 0
+        
+        if str[0] == '-' and str[1].isdigit():
+            flag = -1
+            
+        elif str[0].isdigit() or (str[0] == '+' and str[1].isdigit()):
+            flag = 1
+        else:
+            return 0
+        if str[0] == '+' or str[0] == '-':
+            str = str[1:]
+            
+        str_len = len(str)
+        res = 0
+        begin = 1
+        for i in range(str_len):
+            if str[i].isdigit() and begin == 1:
+                res = res*10 + (ord(str[i]) - ord('0'))
+            if not str[i].isdigit():
+                begin = 0
+        if flag*res<-1*2**31:
+            return -1*2**31
+        if flag*res > 2**31-1:
+            return 2**31-1
+        return flag*res
+        
+#we can also try to use re
