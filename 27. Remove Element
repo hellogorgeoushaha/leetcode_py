@@ -1,0 +1,14 @@
+class Solution(object):
+    def removeElement(self, nums, val):
+        """
+        :type nums: List[int]
+        :type val: int
+        :rtype: int
+        """
+        no_val_num = -1
+        for i in range(len(nums)):
+            if nums[i] != val:
+                no_val_num += 1
+                nums[no_val_num] = nums[i]
+                
+        return no_val_num+1
