@@ -1,0 +1,38 @@
+class Solution(object):
+    def findSubstring(self, s, words):
+        """
+        :type s: str
+        :type words: List[str]
+        :rtype: List[int]
+        """
+        res = []
+        if s == "" or words == []:
+            return res
+        total_num = len(words)
+        per_words_length = len(words[0])
+        total_length = total_num * per_words_length
+        s_length = len(s)
+        if s_length < total_length:
+            return res
+        words_dict = {}
+        for k, v in enumerate(words):
+            if v in words_dict:
+                words_dict[v] += 1
+            else:
+                words_dict[v] = 1
+        
+        
+        for i in range(0, s_length-total_length+1): # match each beginning position of s
+            temp_dict = {}
+            for j in range(i,i+total_length, per_words_length):
+                if s[j:j+per_words_length] in temp_dict:
+                    temp_dict[s[j:j+per_words_length]] += 1
+                else:
+                    temp_dict[s[j:j+per_words_length]] = 1
+            #print(temp_dict, words_dict)
+            
+            if temp_dict == words_dict: 
+                res.append(i)
+            
+        return res
+        # interesting for slicing s
