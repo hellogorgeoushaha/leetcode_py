@@ -1,0 +1,23 @@
+class Solution(object):
+    def multiply(self, num1, num2):
+        """
+        :type num1: str
+        :type num2: str
+        :rtype: str
+        """
+        len1 = len(num1)
+        len2 = len(num2)
+        res = 0
+        
+        for i in range(len1):
+            a = int(num1[-1-i])
+            temp_i = 0
+            carry = 0
+            for j in range(len2):
+                b = int(num2[-j-1])
+                num = a * b + carry
+                temp_i += (10**j)*(num%10)
+                carry = num//10
+            temp_i += carry*(10**len2)
+            res += (10**i)*temp_i
+        return str(res)
