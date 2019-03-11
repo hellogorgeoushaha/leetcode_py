@@ -1,0 +1,25 @@
+class Solution(object):
+    def permuteUnique(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        res = []
+        self.dfs(nums, res, [])
+        return res
+    
+    def dfs(self, nums, res, temp):
+        if len(temp) == len(nums):
+            temp_res = [nums[i] for i in temp]
+            if temp_res not in res:
+                res.append(temp_res)
+            return
+        for i in range(len(nums)):
+            if i in temp:
+                continue
+            
+            temp.append(i)
+            self.dfs(nums, res, temp)
+            temp.remove(i)
+            
+# use index for permutations(The index is alway different)           
