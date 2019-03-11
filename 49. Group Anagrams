@@ -1,0 +1,20 @@
+class Solution(object):
+    def groupAnagrams(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: List[List[str]]
+        """
+        res = []
+        str_map = {}
+        
+        for string in strs:
+            tmp = ''.join(sorted(string))
+            if tmp in str_map:
+                str_map[tmp].append(string)
+            else:
+                str_map[tmp] = [string]
+        for temp_res in str_map.values():
+            res.append(temp_res)
+            
+        return res
+        # use a map: {sorted(string), [original string1, original string2...]}
