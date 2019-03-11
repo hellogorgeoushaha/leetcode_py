@@ -1,0 +1,20 @@
+class Solution(object):
+    def myPow(self, x, n):
+        """
+        :type x: float
+        :type n: int
+        :rtype: float
+        """
+        if n < 0:
+            return 1/self.pow(x, -n)
+        else:
+            return self.pow(x, n)
+    
+    def pow(self,x,n):
+        if n == 0:
+            return 1
+        half = self.pow(x,n/2) # if we put this into the return part, out of time!
+        if n%2 == 0:
+            return half*half
+        else:
+            return half*half*x
