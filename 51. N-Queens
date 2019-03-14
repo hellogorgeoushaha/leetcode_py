@@ -1,0 +1,46 @@
+class Solution(object):
+    def solveNQueens(self, n):
+        """
+        :type n: int
+        :rtype: List[List[str]]
+        """
+        n = int(n)
+        result = []
+        record = [0]*(n+1)
+        self.findResult(result,n,1,1,record)
+        return result
+        
+        
+    def check(self,row,col):
+        for i in range(1,row):
+            if col[i] == col[row] or (abs(col[row]-col[i]) == abs(row - i)):
+                return False
+        return True
+
+    def findResult(self,result,total,row,col,record):
+        if row == 0:
+            return result
+        record[row] = col
+        while record[row]<=total and not self.check(row,record):
+            record[row] += 1
+        #回溯    
+        if record[row]>total:
+            row -= 1
+            newCol = record[row] + 1
+            self.findResult(result,total,row,newCol,record)
+        else:
+            if row == total:
+                empty = ['.'*total for i in range(0,total)]
+                for i in range(0,total):
+                    temp = list(empty[i])
+                    temp[record[i+1]-1] = 'Q'
+                    empty[i] = ''.join(temp)
+                result.append(empty)
+                #回溯
+                row -= 1
+                newCol = record[row] + 1
+                self.findResult(result,total,row,newCol,record)
+            else:
+                row += 1
+                self.findResult(result,total,row,1,record)
+
