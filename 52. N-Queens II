@@ -1,0 +1,40 @@
+class Solution(object):
+    def totalNQueens(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        n = int(n)
+        self.ans = 0
+        record = [0]*(n+1)
+        self.Nqueens(n, record, 1, 1)
+        return self.ans
+    
+    
+    def check(self, row, record):
+        for i in range(1, row):
+            if record[i] == record[row] or (abs(record[i]-record[row]) == abs(i- row)):
+                return False
+        return True
+    
+    def Nqueens(self, n, record, row, col):
+        if row == 0:
+            return
+        record[row] = col
+        while record[row] <= n and not self.check(row, record):
+            record[row] += 1
+        
+        if record[row] > n:
+            row -= 1
+            newcol = record[row]+1
+            self.Nqueens(n, record, row, newcol)
+        else:
+            if row == n:
+                self.ans += 1
+                
+                row -= 1
+                newcol = record[row]+1
+                self.Nqueens(n, record, row, newcol)
+            else:
+                row += 1
+                self.Nqueens(n, record, row, 1)
