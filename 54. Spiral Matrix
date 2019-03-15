@@ -1,0 +1,40 @@
+class Solution(object):
+    def spiralOrder(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: List[int]
+        """
+    
+    def spiralOrder(self, matrix):
+        ans = []
+       
+        if(len(matrix) == 0):
+            return ans
+        self.func(matrix, 0, len(matrix)-1, 0, len(matrix[0])-1, ans)
+        return ans
+
+    
+    def func(self, matrix, ri, rj, ci, cj, nums):
+        if(ri > rj or ci > cj):
+            return
+        elif(ri == rj):
+            for j in range(ci, cj+1):
+                nums.append(matrix[ri][j])
+            return
+        elif(ci == cj):
+            for i in range(ri, rj+1):
+                nums.append(matrix[i][ci])
+            return
+
+        else:
+            for j in range(ci, cj):
+                nums.append(matrix[ri][j])
+            for i in range(ri, rj):
+                nums.append(matrix[i][cj])
+            for j in range(cj, ci, -1):
+                nums.append(matrix[rj][j])
+            for i in range(rj, ri, -1):
+                nums.append(matrix[i][ci])
+            self.func(matrix, ri+1, rj-1, ci+1, cj-1, nums)
+            
+            #每次去掉最外面一圈
