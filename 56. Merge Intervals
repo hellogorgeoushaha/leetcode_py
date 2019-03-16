@@ -1,0 +1,26 @@
+class Solution(object):
+    def merge(self, intervals):
+        """
+        :type intervals: List[Interval]
+        :rtype: List[Interval]
+        """
+        if intervals is None:
+            return 
+        if len(intervals) <=1:
+            return intervals
+        intervals.sort(key = lambda x: x.start) 
+        
+        res = [intervals[0]]
+        for i in xrange(1,len(intervals)):
+            if intervals[i].start <= res[-1].end:
+                if intervals[i].end <= res[-1].end:
+                    continue
+                else:
+                    tmp = res[-1]
+                    res.pop()
+                    
+                    res.append(Interval(tmp.start,intervals[i].end))
+                    continue
+            else:
+                res.append(intervals[i])
+        return res
