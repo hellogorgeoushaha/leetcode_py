@@ -1,0 +1,31 @@
+class Solution(object):
+    def generateMatrix(self, n):
+        """
+        :type n: int
+        :rtype: List[List[int]]
+        """
+        res = [[0 for __ in range(n)] for _ in range(n)]
+        up, down, left, right = 0, n, 0, n
+        idx = 1
+        while idx <= n*n:
+            for i in range(left, right):
+                res[up][i] = idx
+                idx += 1
+            up += 1
+            
+            for i in range(up, down):
+                res[i][right-1] = idx
+                idx += 1
+            right -= 1
+            
+            for i in range(right-1, left-1, -1):
+                res[down-1][i] = idx
+                idx += 1
+            down -= 1
+            
+            for i in range(down-1, up-1, -1):
+                res[i][left] = idx
+                idx += 1
+            left += 1
+            
+        return res
