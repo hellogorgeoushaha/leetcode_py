@@ -1,0 +1,37 @@
+class Solution(object):
+    def addBinary(self, a, b):
+        """
+        :type a: str
+        :type b: str
+        :rtype: str
+        """
+        res = ""
+        carry = 0
+        lena = len(a)
+        lenb = len(b)
+        if lena<lenb:
+            a, b = b, a
+            lena, lenb = lenb , lena
+        a = a[::-1]
+        b = b[::-1]
+        for i in range(lenb):
+            
+            if a[i] == '1' and b[i] == '1':
+                res += str(carry)
+                carry = 1
+            elif a[i] == '1' or b[i] == '1':
+                step = (int(a[i])+int(b[i])+carry)%2
+                res += str(step)
+                carry = (int(a[i])+int(b[i])+carry)//2
+            else:
+                step = (int(a[i])+int(b[i])+carry)%2
+                res += str(step)
+                carry = 0
+        
+        for i in range(lenb, lena):
+            step = (int(a[i])+carry)%2
+            res += str(step)
+            carry = (int(a[i])+carry)//2
+        if carry == 1:
+            res+='1'
+        return res[::-1]
