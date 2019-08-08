@@ -27,4 +27,37 @@ class Solution(object):
             maxlen = maxlen if maxlen > j-i else j-i
         
         return maxlen
+  上面用字典hash
+  
+  更新滑动窗口方法
+  class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        if len(s)==0:
+            return 0
+        length = 0
+        hashset = set()
+        templength = 0
+        i=0
+        for k, v in enumerate(s):
+            if v not in hashset:
+                hashset.add(v)
+                templength += 1
+            else:
+                if templength > length:
+                    length = templength
+                while v in hashset:
+                    hashset.remove(s[i])
+                    templength -= 1
+                    i += 1
+                hashset.add(v)
+                templength += 1
                 
+        if templength > length:
+            return templength
+        else:
+            return length
+            
